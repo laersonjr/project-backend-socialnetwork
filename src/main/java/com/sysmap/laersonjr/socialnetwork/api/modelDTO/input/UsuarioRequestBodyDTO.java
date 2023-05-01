@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class UsuarioRequestBody {
+public class UsuarioRequestBodyDTO {
 
     private UUID id;
 
