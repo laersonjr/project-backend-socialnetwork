@@ -1,5 +1,7 @@
 package com.sysmap.laersonjr.socialnetwork.domain.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedDate;
@@ -19,8 +21,12 @@ public class Usuario {
     @EqualsAndHashCode.Include
     @Id
     private UUID id;
+    @NotBlank
+    @Email
     private String email;
+    @NotBlank
     private String senha;
+    @NotBlank
     private String apelido;
     @Field("url_foto")
     private String urlFoto;
