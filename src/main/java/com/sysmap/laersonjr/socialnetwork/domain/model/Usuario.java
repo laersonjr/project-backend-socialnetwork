@@ -24,15 +24,15 @@ public class Usuario {
     private String apelido;
     @Field("url_foto")
     private String urlFoto;
-    @CreatedDate
     @Field("data_de_criacao")
     private LocalDateTime dataDeCriacao;
-    @LastModifiedDate
-    @Field("data_de_atualizacao")
-    private LocalDateTime dataAtualizacao;
 
     public void setId() {
         this.id = UUID.randomUUID();
+    }
+
+    public void setDataDeCriacao(){
+        this.dataDeCriacao = LocalDateTime.now();
     }
 
 
