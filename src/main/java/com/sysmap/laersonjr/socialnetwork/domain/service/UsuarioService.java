@@ -5,6 +5,8 @@ import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UsuarioResponseBod
 import com.sysmap.laersonjr.socialnetwork.domain.model.Usuario;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,9 @@ public class UsuarioService implements IUsuarioService{
         UsuarioResponseBodyDTO usuarioCriado = iModelMapperDTOConverter.convertToModelDTO(usuario, UsuarioResponseBodyDTO.class);
         return usuarioCriado;
     }
-
+    public Page<UsuarioResponseBodyDTO> listarUsuariosService(String apelido, Pageable pageable) {
+        Page<Usuario> listaUsuarios = usuarioRepository.findByApelidoContains(apelido, pageable);
+        return iModelMapperDTOConverter.convertToModelPageDTO(listaUsuarios, UsuarioResponseBodyDTO.class);
+    }
 
 }

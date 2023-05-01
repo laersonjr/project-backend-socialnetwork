@@ -1,5 +1,7 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface IModelMapperDTOConverter {
@@ -8,5 +10,6 @@ public interface IModelMapperDTOConverter {
     public <S, T> List<T> convertToModelListDTO(List<S> entities, Class<T> dtoClass);
     public <S, T> T convertToEntity(S dto, Class<T> entity);
     public <S, T> void configureModelMapperForUpdate(S source, T target);
+    public <S, T> Page<T> convertToModelPageDTO(Page<S> entities, Class<T> dtoClass);
 
 }
