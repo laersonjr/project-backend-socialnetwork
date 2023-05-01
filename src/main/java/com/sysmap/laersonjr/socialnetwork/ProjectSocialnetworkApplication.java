@@ -10,4 +10,6 @@ public class ProjectSocialnetworkApplication {
         SpringApplication.run(ProjectSocialnetworkApplication.class, args);
     }
 
+    //TODO: Incluir CORS
+
 }
