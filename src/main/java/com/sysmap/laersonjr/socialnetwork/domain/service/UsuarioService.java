@@ -46,7 +46,7 @@ public class UsuarioService implements IUsuarioService{
         return usuarioRepository.findById(idUsuario).orElseThrow(() -> new UsuarioNotFoundException());
     }
 
-    //TODO: Acrescentar regra para atualizar apenas dados recebidos.
+    //TODO: Acrescentar regra e DTO para atualizar apenas dados recebidos.
     @Override
     public UsuarioResponseBodyDTO atualizarUsuarioService(UUID idUsuario, UsuarioRequestBodyDTO usuarioRequestBodyDTO) {
         Usuario usuarioEncontrado = buscarUsuarioService(idUsuario);

@@ -21,17 +21,25 @@ public class Usuario {
     @EqualsAndHashCode.Include
     @Id
     private UUID id;
+
     @NotBlank
     @Email
     private String email;
+
     @NotBlank
     private String senha;
+
     @NotBlank
     private String apelido;
+
     @Field("url_foto")
     private String urlFoto;
+
     @Field("data_de_criacao")
     private LocalDateTime dataDeCriacao;
+
+    @Field("data_de_atualizacao")
+    private LocalDateTime dataDeAtualizacao;
 
     public void setId() {
         this.id = UUID.randomUUID();
@@ -39,6 +47,10 @@ public class Usuario {
 
     public void setDataDeCriacao(){
         this.dataDeCriacao = LocalDateTime.now();
+    }
+
+    public void setDataDeAtualizacao(){
+        this.dataDeAtualizacao = LocalDateTime.now();
     }
 
 
