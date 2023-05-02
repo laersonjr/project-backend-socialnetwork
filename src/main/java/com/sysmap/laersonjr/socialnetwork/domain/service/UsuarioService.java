@@ -51,6 +51,7 @@ public class UsuarioService implements IUsuarioService{
     public UsuarioResponseBodyDTO atualizarUsuarioService(UUID idUsuario, UsuarioRequestBodyDTO usuarioRequestBodyDTO) {
         Usuario usuarioEncontrado = buscarUsuarioService(idUsuario);
         BeanUtils.copyProperties(usuarioRequestBodyDTO, usuarioEncontrado, "id");
+        usuarioEncontrado.setDataDeAtualizacao();
         Usuario usuarioAtualizado = usuarioRepository.save(usuarioEncontrado);
         return iModelMapperDTOConverter.convertToModelDTO(usuarioAtualizado, UsuarioResponseBodyDTO.class);
     }
