@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface UsuarioRepository extends MongoRepository<Usuario, UUID> {
 
     public Page<Usuario> findByApelidoContains(String apelido, Pageable pageable);
+    Usuario findByEmail(String email);
 }

@@ -16,4 +16,5 @@ public interface IUsuarioService {
     Usuario buscarUsuarioService(UUID idUsuario);
     UsuarioResponseBodyDTO atualizarUsuarioService(UUID idUsuario, UsuarioRequestBodyDTO usuarioRequestBodyDTO);
     void excluirUsuarioService(UUID idUsuario);
+    Usuario buscarUsuarioServiceEmail(String email);
 }
