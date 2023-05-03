@@ -20,6 +20,8 @@ public class AuthenticationController {
     @Autowired
     private TokenProvider tokenProvider;
 
+    //TODO: Refatorar controller com principio de responsabilidade unica.
+
     @PostMapping("/login")
     public ResponseEntity<UsuarioAuthenticatedDTO> authenticateUser(@RequestBody UsuarioAuthenticationDTO login) {
 

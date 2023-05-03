@@ -17,6 +17,7 @@ public class TokenProvider {
 
     SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
+    //TODO: criar e atribuir valor de jwtSecret no application.properties
     // @Value("${app.jwtSecret}")
     private String jwtSecret = Encoders.BASE64.encode(key.getEncoded());
 
