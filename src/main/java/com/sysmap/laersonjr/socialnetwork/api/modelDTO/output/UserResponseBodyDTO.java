@@ -12,7 +12,7 @@ public class UserResponseBodyDTO {
 
     private UUID id;
     private String email;
-    private String apelido;
-    private LocalDateTime dataDeCriacao;
+    private String nickName;
+    private LocalDateTime createdDate;
 
 }

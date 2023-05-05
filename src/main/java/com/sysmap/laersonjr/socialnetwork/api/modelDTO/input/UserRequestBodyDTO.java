@@ -18,11 +18,11 @@ public class UserRequestBodyDTO {
     private String email;
 
     @NotBlank
-    private String senha;
+    private String password;
 
     @NotBlank
-    private String apelido;
+    private String nickName;
 
-    private String urlFoto;
+    private String photoUrl;
 
 }
