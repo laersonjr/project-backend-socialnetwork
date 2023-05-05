@@ -4,11 +4,12 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class UsuarioAuthenticationDTO {
+public class UserAuthenticationDTO {
 
     @NotBlank
     private String email;
+
     @NotBlank
-    private String senha;
+    private String password;
 
 }

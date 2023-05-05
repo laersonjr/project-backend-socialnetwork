@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Component
-public class TokenProvider {
+public class TokenProvider implements ITokenProvide{
 
     SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
@@ -24,6 +24,7 @@ public class TokenProvider {
     @Value("${app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    @Override
     public String generateToken(String email) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
@@ -37,6 +38,7 @@ public class TokenProvider {
                 .compact();
     }
 
+    @Override
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
@@ -47,6 +49,7 @@ public class TokenProvider {
         return false;
     }
 
+    @Override
     public String getEmailFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)

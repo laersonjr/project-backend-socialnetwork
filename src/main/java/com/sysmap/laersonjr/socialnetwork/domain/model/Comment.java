@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
@@ -13,9 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Document(collection = "posts")
-public class Post {
+public class Comment {
 
     @EqualsAndHashCode.Include
     @Id
@@ -24,18 +21,13 @@ public class Post {
     private User user;
 
     @NotBlank
-    private String title;
-
-    @NotBlank
-    private String content;
+    private String commentary;
 
     @Field("created_date")
     private LocalDateTime createdDate;
 
     @Field("updated_date")
     private LocalDateTime updatedDate;
-
-    private List<Comment> comments = new ArrayList<>();
 
     private List<Like> likes = new ArrayList<>();
 

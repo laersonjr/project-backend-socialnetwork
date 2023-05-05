@@ -4,9 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -15,8 +13,8 @@ import java.util.UUID;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Document(collection = "usuarios")
-public class Usuario {
+@Document(collection = "users")
+public class User {
 
     @EqualsAndHashCode.Include
     @Id
@@ -27,30 +25,31 @@ public class Usuario {
     private String email;
 
     @NotBlank
-    private String senha;
+    private String password;
 
     @NotBlank
-    private String apelido;
+    @Field("nick_name")
+    private String nickName;
 
-    @Field("url_foto")
-    private String urlFoto;
+    @Field("photo_url")
+    private String photoUrl;
 
-    @Field("data_de_criacao")
-    private LocalDateTime dataDeCriacao;
+    @Field("created_date")
+    private LocalDateTime createdDate;
 
-    @Field("data_de_atualizacao")
-    private LocalDateTime dataDeAtualizacao;
+    @Field("updated_date")
+    private LocalDateTime updatedDate;
 
     public void setId() {
         this.id = UUID.randomUUID();
     }
 
-    public void setDataDeCriacao(){
-        this.dataDeCriacao = LocalDateTime.now();
+    public void setCreatedDate() {
+        this.createdDate = LocalDateTime.now();
     }
 
-    public void setDataDeAtualizacao(){
-        this.dataDeAtualizacao = LocalDateTime.now();
+    public void setUpdatedDate() {
+        this.updatedDate = LocalDateTime.now();
     }
 
 
