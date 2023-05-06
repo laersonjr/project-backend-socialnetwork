@@ -3,9 +3,9 @@ package com.sysmap.laersonjr.socialnetwork.domain.service;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.PostRequestBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.PostResponseBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumePostDTO;
-import com.sysmap.laersonjr.socialnetwork.core.security.ITokenProvide;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.ForbiddenActionException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.PostNotFoundException;
+import com.sysmap.laersonjr.socialnetwork.domain.model.Comment;
 import com.sysmap.laersonjr.socialnetwork.domain.model.Post;
 import com.sysmap.laersonjr.socialnetwork.domain.model.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.PostRepository;
@@ -27,16 +27,13 @@ public class PostService implements IPostService {
     private PostRepository postRepository;
 
     @Autowired
-    private IUserService iUserService;
-
-    @Autowired
-    private ITokenProvide iTokenProvide;
+    private IAuthenticationService iAuthenticationService;
 
     @Override
     public PostResponseBodyDTO createPostService(PostRequestBodyDTO postRequestBodyDTO, HttpServletRequest request) {
 
         Post post = iModelMapperDTOConverter.convertToEntity(postRequestBodyDTO, Post.class);
-        User user = getAuthenticatedUser(request);
+        User user = iAuthenticationService.getAuthenticatedUser(request);
         if (user != null) {
             post.setUser(iModelMapperDTOConverter.convertToModelDTO(user, UserResumePostDTO.class));
             post.setCreatedDate();
@@ -54,7 +51,7 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostResponseBodyDTO> listPostByUserService(HttpServletRequest request) {
-        User authenticatedUser = getAuthenticatedUser(request);
+        User authenticatedUser = iAuthenticationService.getAuthenticatedUser(request);
         if (authenticatedUser == null) {
             return null;
         }
@@ -95,21 +92,19 @@ public class PostService implements IPostService {
         postRepository.deleteById(postId);
     }
 
+    public void saveCommentInPost(Comment newComment, UUID idPost){
+        Post findPost = searchPostById(idPost);
+        findPost.addComment(newComment);
+        postRepository.save(findPost);
+    }
+
     private boolean isPostNotOwnedByUser(HttpServletRequest request, Post findPost) {
-        return !findPost.getUser().getId().equals(getAuthenticatedUser(request).getId());
+        return !findPost.getUser().getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
     }
 
-    private User getAuthenticatedUser(HttpServletRequest request) {
-        String header = request.getHeader("Authorization");
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.split(" ")[1];
-            String email = iTokenProvide.getEmailFromToken(token);
-            return iUserService.findUserByEmailService(email);
-        }
-        return null;
-    }
 
-    private Post searchPostById(UUID postId){
+
+    public Post searchPostById(UUID postId){
         return postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException());
     }
 

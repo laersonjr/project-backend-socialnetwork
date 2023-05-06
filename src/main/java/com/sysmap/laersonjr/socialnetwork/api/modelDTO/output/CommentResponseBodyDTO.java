@@ -12,5 +12,7 @@ public class CommentResponseBodyDTO {
     private UserResumeCommentDTO user;
     private String commentary;
     private LocalDateTime createdDate;
+    private LocalDateTime updateDate;
+    private Integer likeCounts;
 
 }

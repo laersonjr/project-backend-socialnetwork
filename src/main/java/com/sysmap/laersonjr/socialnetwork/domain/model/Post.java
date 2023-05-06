@@ -52,4 +52,8 @@ public class Post {
         this.updatedDate = LocalDateTime.now();
     }
 
+    public void addComment(Comment comment){
+        comments.add(comment);
+    }
+
 }

@@ -2,6 +2,8 @@ package com.sysmap.laersonjr.socialnetwork.domain.service;
 
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.PostRequestBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.PostResponseBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.domain.model.Comment;
+import com.sysmap.laersonjr.socialnetwork.domain.model.Post;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
@@ -21,4 +23,8 @@ public interface IPostService {
     PostResponseBodyDTO updatePostService(UUID postId, PostRequestBodyDTO postRequestBodyDTO, HttpServletRequest request);
 
     void deletePostService(UUID postId, HttpServletRequest request);
+
+    Post searchPostById(UUID postId);
+
+    void saveCommentInPost(Comment newComment, UUID idPost);
 }
