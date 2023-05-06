@@ -2,19 +2,16 @@ package com.sysmap.laersonjr.socialnetwork.domain.service;
 
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.PostRequestBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.PostResponseBodyDTO;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResponseBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumePostDTO;
 import com.sysmap.laersonjr.socialnetwork.core.security.ITokenProvide;
+import com.sysmap.laersonjr.socialnetwork.domain.exception.ForbiddenActionException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.PostNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.model.Post;
 import com.sysmap.laersonjr.socialnetwork.domain.model.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.PostRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,6 +72,31 @@ public class PostService implements IPostService {
     public PostResponseBodyDTO findPostByIdService(UUID postId) {
             Post findPost = searchPostById(postId);
         return iModelMapperDTOConverter.convertToModelDTO(findPost, PostResponseBodyDTO.class);
+    }
+
+    @Override
+    public PostResponseBodyDTO updatePostService(UUID postId, PostRequestBodyDTO postRequestBodyDTO, HttpServletRequest request){
+        Post findPost = searchPostById(postId);
+        if(isPostNotOwnedByUser(request, findPost)){
+            throw new ForbiddenActionException();
+        }
+        BeanUtils.copyProperties(postRequestBodyDTO, findPost, "id");
+        findPost.setUpdatedDate();
+        postRepository.save(findPost);
+        return iModelMapperDTOConverter.convertToModelDTO(findPost, PostResponseBodyDTO.class);
+    }
+
+    @Override
+    public void deletePostService(UUID postId, HttpServletRequest request) {
+        Post findPost = searchPostById(postId);
+        if(isPostNotOwnedByUser(request, findPost)){
+            throw new ForbiddenActionException();
+        }
+        postRepository.deleteById(postId);
+    }
+
+    private boolean isPostNotOwnedByUser(HttpServletRequest request, Post findPost) {
+        return !findPost.getUser().getId().equals(getAuthenticatedUser(request).getId());
     }
 
     private User getAuthenticatedUser(HttpServletRequest request) {

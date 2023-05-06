@@ -41,9 +41,22 @@ public class PostController {
         return ResponseEntity.ok(iPostService.listPostByNickName(nickName)).getBody();
     }
 
-    @GetMapping("/{postId}")
+    @GetMapping("/id/{postId}")
     public ResponseEntity<PostResponseBodyDTO> getPostbyID(@PathVariable UUID postId){
         return ResponseEntity.ok(iPostService.findPostByIdService(postId));
     }
+
+    @PutMapping("/{postId}")
+    public ResponseEntity<PostResponseBodyDTO> updatePost(@PathVariable UUID postId, @Valid @RequestBody PostRequestBodyDTO postRequestBodyDTO,
+                                                          HttpServletRequest request){
+        return ResponseEntity.ok(iPostService.updatePostService(postId, postRequestBodyDTO, request));
+    }
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable UUID postId, HttpServletRequest request){
+        iPostService.deletePostService(postId, request);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
