@@ -1,5 +1,6 @@
 package com.sysmap.laersonjr.socialnetwork.domain.model;
 
+import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumePostDTO;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +22,7 @@ public class Post {
     @Id
     private UUID id;
 
-    private User user;
+    private UserResumePostDTO user;
 
     @NotBlank
     private String title;
