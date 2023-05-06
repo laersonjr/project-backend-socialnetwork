@@ -43,5 +43,6 @@ public class PostController {
         return ResponseEntity.ok(iPostService.listPostByNickName(nickName)).getBody();
     }
 
+    //TODO: Criar método de buscar post pelo seu id
 
 }
