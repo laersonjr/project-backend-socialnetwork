@@ -6,6 +6,7 @@ import com.sysmap.laersonjr.socialnetwork.domain.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IPostService {
     PostResponseBodyDTO createPostService(PostRequestBodyDTO postRequestBodyDTO, HttpServletRequest request);
@@ -16,4 +17,5 @@ public interface IPostService {
 
     List<PostResponseBodyDTO> listPostByNickName(String nickName);
 
+    PostResponseBodyDTO findPostByIdService(UUID postId);
 }

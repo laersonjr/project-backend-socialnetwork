@@ -5,6 +5,7 @@ import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.PostResponseBodyDT
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResponseBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumePostDTO;
 import com.sysmap.laersonjr.socialnetwork.core.security.ITokenProvide;
+import com.sysmap.laersonjr.socialnetwork.domain.exception.PostNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.model.Post;
 import com.sysmap.laersonjr.socialnetwork.domain.model.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.PostRepository;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostService implements IPostService {
@@ -69,6 +71,12 @@ public class PostService implements IPostService {
         return iModelMapperDTOConverter.convertToModelListDTO(postRepository.findByUserNickName(nickName), PostResponseBodyDTO.class);
     }
 
+    @Override
+    public PostResponseBodyDTO findPostByIdService(UUID postId) {
+            Post findPost = searchPostById(postId);
+        return iModelMapperDTOConverter.convertToModelDTO(findPost, PostResponseBodyDTO.class);
+    }
+
     private User getAuthenticatedUser(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
         if (header != null && header.startsWith("Bearer ")) {
@@ -77,6 +85,10 @@ public class PostService implements IPostService {
             return iUserService.findUserByEmailService(email);
         }
         return null;
+    }
+
+    private Post searchPostById(UUID postId){
+        return postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException());
     }
 
 
