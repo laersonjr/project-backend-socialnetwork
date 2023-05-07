@@ -104,6 +104,18 @@ public class PostService implements IPostService {
         postRepository.save(postComments);
     }
 
+    @Override
+    public void updateCommentFromPost(Post postComments, Comment comment) {
+        for (int i = 0; i < postComments.getComments().size(); i++){
+            if(postComments.getComments().get(i).getId().equals(comment.getId())){
+                postComments.getComments().get(i).setCommentary(comment.getCommentary());
+                postComments.getComments().get(i).setUpdatedDate();
+                postRepository.save(postComments);
+                break;
+            }
+        }
+    }
+
     private boolean isPostNotOwnedByUser(HttpServletRequest request, Post findPost) {
         return !findPost.getUser().getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
     }

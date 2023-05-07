@@ -52,6 +52,18 @@ public class CommentService implements ICommentService {
         iPostService.removeCommentFromPost(postComments, comment);
     }
 
+    @Override
+    public CommentResponseBodyDTO updateCommentService(UUID idPost, UUID idComment, HttpServletRequest request, CommentRequestBodyDTO commentRequestBodyDTO) {
+        Post postComments = iPostService.searchPostById(idPost);
+        Comment comment = getCommentById(idComment, postComments.getComments());
+        if (isCommentNotOwnedByUser(request, comment)) {
+            throw new ForbiddenActionException();
+        }
+        comment.setCommentary(commentRequestBodyDTO.getCommentary());
+        iPostService.updateCommentFromPost(postComments, comment);
+        return iModelMapperDTOConverter.convertToModelDTO(comment, CommentResponseBodyDTO.class);
+    }
+
     private boolean isCommentNotOwnedByUser(HttpServletRequest request, Comment comment) {
         return !comment.getUser().getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
     }

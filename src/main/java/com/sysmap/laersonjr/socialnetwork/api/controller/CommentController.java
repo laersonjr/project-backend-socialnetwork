@@ -26,6 +26,12 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(iCommentService.createCommentService(idPost, commentRequestBodyDTO, request));
     }
 
+    @PutMapping("/{idComment}")
+    public ResponseEntity<CommentResponseBodyDTO> updateComment(@PathVariable UUID idPost, @PathVariable UUID idComment,
+                                                                HttpServletRequest request, @Valid @RequestBody CommentRequestBodyDTO commentRequestBodyDTO){
+        return ResponseEntity.ok(iCommentService.updateCommentService(idPost, idComment, request, commentRequestBodyDTO));
+    }
+
     @DeleteMapping("/{idComment}")
     public ResponseEntity<Void> removeComment(@PathVariable UUID idPost, @PathVariable UUID idComment, HttpServletRequest request){
         iCommentService.removeCommentService(idPost, idComment, request);

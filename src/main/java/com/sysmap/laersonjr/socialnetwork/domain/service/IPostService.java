@@ -30,4 +30,6 @@ public interface IPostService {
     void saveCommentInPost(Comment newComment, UUID idPost);
 
     void removeCommentFromPost(Post postComments, Comment comment);
+
+    void updateCommentFromPost(Post postComments, Comment comment);
 }

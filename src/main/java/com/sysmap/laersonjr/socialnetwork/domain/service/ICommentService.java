@@ -10,4 +10,6 @@ public interface ICommentService {
     CommentResponseBodyDTO createCommentService(UUID idPost, CommentRequestBodyDTO commentRequestBodyDTO, HttpServletRequest request);
 
     void removeCommentService(UUID idPost, UUID idComment, HttpServletRequest request);
+
+    CommentResponseBodyDTO updateCommentService(UUID idPost, UUID idComment, HttpServletRequest request, CommentRequestBodyDTO commentRequestBodyDTO);
 }
