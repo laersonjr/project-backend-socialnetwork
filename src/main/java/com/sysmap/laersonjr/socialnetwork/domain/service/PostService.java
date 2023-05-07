@@ -98,10 +98,15 @@ public class PostService implements IPostService {
         postRepository.save(findPost);
     }
 
+    @Override
+    public void removeCommentFromPost(Post postComments, Comment comment) {
+        postComments.getComments().remove(comment);
+        postRepository.save(postComments);
+    }
+
     private boolean isPostNotOwnedByUser(HttpServletRequest request, Post findPost) {
         return !findPost.getUser().getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
     }
-
 
 
     public Post searchPostById(UUID postId){

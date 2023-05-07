@@ -3,6 +3,7 @@ package com.sysmap.laersonjr.socialnetwork.domain.service;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.UserAuthenticationDTO;
 import com.sysmap.laersonjr.socialnetwork.core.security.ITokenProvide;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.IncorrectPasswordException;
+import com.sysmap.laersonjr.socialnetwork.domain.exception.TokenNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.model.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,13 +40,14 @@ public class AuthenticationService implements IAuthenticationService {
 
     public User getAuthenticatedUser(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.split(" ")[1];
-            String email = iTokenProvide.getEmailFromToken(token);
-            return iUserService.findUserByEmailService(email);
+        if (header == null || !header.startsWith("Bearer ")) {
+            throw new TokenNotFoundException();
         }
-        return null;
+        String token = header.split(" ")[1];
+        String email = iTokenProvide.getEmailFromToken(token);
+        return iUserService.findUserByEmailService(email);
     }
+
 
     private boolean validadePassword(User userFound, UserAuthenticationDTO login) {
         return !userFound.getPassword().equals(login.getPassword());

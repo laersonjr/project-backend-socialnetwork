@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface ICommentService {
     CommentResponseBodyDTO createCommentService(UUID idPost, CommentRequestBodyDTO commentRequestBodyDTO, HttpServletRequest request);
+
+    void removeCommentService(UUID idPost, UUID idComment, HttpServletRequest request);
 }
