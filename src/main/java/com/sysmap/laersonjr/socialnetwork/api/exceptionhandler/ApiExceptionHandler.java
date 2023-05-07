@@ -1,9 +1,6 @@
 package com.sysmap.laersonjr.socialnetwork.api.exceptionhandler;
 
-import com.sysmap.laersonjr.socialnetwork.domain.exception.ForbiddenActionException;
-import com.sysmap.laersonjr.socialnetwork.domain.exception.IncorrectPasswordException;
-import com.sysmap.laersonjr.socialnetwork.domain.exception.PostNotFoundException;
-import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
+import com.sysmap.laersonjr.socialnetwork.domain.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -48,9 +45,30 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
     }
 
+    @ExceptionHandler(TokenNotFoundException.class)
+    private ResponseEntity<Object> handleTokenNotFoundException(TokenNotFoundException ex, WebRequest request){
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ErrorDetails errorDetails = getDetailsErrors(status, ex);
+        return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(TokenInvalidException.class)
+    private ResponseEntity<Object> handleTokenInvalidException(TokenInvalidException ex, WebRequest request){
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        ErrorDetails errorDetails = getDetailsErrors(status, ex);
+        return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
+    }
+
     @ExceptionHandler(IncorrectPasswordException.class)
     private ResponseEntity<Object> handleIncorrectPasswordException(IncorrectPasswordException ex, WebRequest request){
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorDetails errorDetails = getDetailsErrors(status, ex);
+        return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    private ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex, WebRequest request){
+        HttpStatus status = HttpStatus.NOT_FOUND;
         ErrorDetails errorDetails = getDetailsErrors(status, ex);
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
     }
@@ -62,8 +80,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    private ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex, WebRequest request){
+    @ExceptionHandler(CommentNotFoundException.class)
+    private ResponseEntity<Object> handleCommentNotFoundException(CommentNotFoundException ex, WebRequest request){
         HttpStatus status = HttpStatus.NOT_FOUND;
         ErrorDetails errorDetails = getDetailsErrors(status, ex);
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);

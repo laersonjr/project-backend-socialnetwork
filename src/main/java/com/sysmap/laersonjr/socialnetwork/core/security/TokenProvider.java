@@ -1,10 +1,12 @@
 package com.sysmap.laersonjr.socialnetwork.core.security;
 
+import com.sysmap.laersonjr.socialnetwork.domain.exception.TokenInvalidException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -43,10 +45,9 @@ public class TokenProvider implements ITokenProvide{
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
             return true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SignatureException ex) {
+            throw new TokenInvalidException();
         }
-        return false;
     }
 
     @Override

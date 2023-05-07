@@ -44,6 +44,7 @@ public class AuthenticationService implements IAuthenticationService {
             throw new TokenNotFoundException();
         }
         String token = header.split(" ")[1];
+        iTokenProvide.validateToken(token);
         String email = iTokenProvide.getEmailFromToken(token);
         return iUserService.findUserByEmailService(email);
     }
