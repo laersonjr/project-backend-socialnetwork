@@ -1,4 +1,4 @@
-package com.sysmap.laersonjr.socialnetwork.domain.exception;
+package com.sysmap.laersonjr.socialnetwork.core.security.exception;
 
 public class TokenInvalidException extends RuntimeException {
 

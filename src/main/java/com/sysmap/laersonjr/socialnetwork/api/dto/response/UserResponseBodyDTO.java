@@ -1,4 +1,4 @@
-package com.sysmap.laersonjr.socialnetwork.api.modelDTO.output;
+package com.sysmap.laersonjr.socialnetwork.api.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,10 +1,10 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.UserRequestBodyDTO;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResponseBodyDTO;
-import com.sysmap.laersonjr.socialnetwork.domain.exception.ForbiddenActionException;
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.UserRequestBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResponseBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.core.security.exception.ForbiddenActionException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
-import com.sysmap.laersonjr.socialnetwork.domain.model.User;
+import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;

@@ -1,5 +1,8 @@
 package com.sysmap.laersonjr.socialnetwork.api.exceptionhandler;
 
+import com.sysmap.laersonjr.socialnetwork.core.security.exception.ForbiddenActionException;
+import com.sysmap.laersonjr.socialnetwork.core.security.exception.TokenInvalidException;
+import com.sysmap.laersonjr.socialnetwork.core.security.exception.TokenNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

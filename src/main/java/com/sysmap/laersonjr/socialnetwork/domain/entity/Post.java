@@ -1,6 +1,6 @@
-package com.sysmap.laersonjr.socialnetwork.domain.model;
+package com.sysmap.laersonjr.socialnetwork.domain.entity;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResume;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

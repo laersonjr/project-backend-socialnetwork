@@ -1,4 +1,4 @@
-package com.sysmap.laersonjr.socialnetwork.api.modelDTO.output;
+package com.sysmap.laersonjr.socialnetwork.api.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class UserResumeLikeDTO {
+public class UserResume {
 
     private UUID id;
     private String nickName;

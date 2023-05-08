@@ -1,4 +1,4 @@
-package com.sysmap.laersonjr.socialnetwork.domain.model;
+package com.sysmap.laersonjr.socialnetwork.domain.entity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

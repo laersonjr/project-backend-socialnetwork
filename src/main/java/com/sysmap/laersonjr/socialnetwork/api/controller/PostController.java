@@ -1,7 +1,7 @@
 package com.sysmap.laersonjr.socialnetwork.api.controller;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.PostRequestBodyDTO;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.PostResponseBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.PostRequestBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.PostResponseBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.domain.service.IPostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

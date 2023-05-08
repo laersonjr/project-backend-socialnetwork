@@ -1,6 +1,6 @@
 package com.sysmap.laersonjr.socialnetwork.domain.repository;
 
-import com.sysmap.laersonjr.socialnetwork.domain.model.Post;
+import com.sysmap.laersonjr.socialnetwork.domain.entity.Post;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;

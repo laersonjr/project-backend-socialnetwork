@@ -1,11 +1,11 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.UserAuthenticationDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.UserAuthenticationDTO;
 import com.sysmap.laersonjr.socialnetwork.core.security.ITokenProvide;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.IncorrectPasswordException;
-import com.sysmap.laersonjr.socialnetwork.domain.exception.TokenNotFoundException;
+import com.sysmap.laersonjr.socialnetwork.core.security.exception.TokenNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
-import com.sysmap.laersonjr.socialnetwork.domain.model.User;
+import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;

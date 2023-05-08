@@ -1,4 +1,4 @@
-package com.sysmap.laersonjr.socialnetwork.api.modelDTO.output;
+package com.sysmap.laersonjr.socialnetwork.api.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import java.util.UUID;
 public class CommentResponseBodyDTO {
 
     private UUID id;
-    private UserResumeCommentDTO user;
+    private UserResume user;
     private String commentary;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;

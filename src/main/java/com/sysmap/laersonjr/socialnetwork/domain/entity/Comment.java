@@ -1,6 +1,6 @@
-package com.sysmap.laersonjr.socialnetwork.domain.model;
+package com.sysmap.laersonjr.socialnetwork.domain.entity;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumeCommentDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +19,7 @@ public class Comment {
     @Id
     private UUID id;
 
-    private UserResumeCommentDTO user;
+    private UserResume user;
 
     @NotBlank
     private String commentary;

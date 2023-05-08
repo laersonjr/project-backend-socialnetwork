@@ -1,14 +1,14 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.PostRequestBodyDTO;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.PostResponseBodyDTO;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResume;
-import com.sysmap.laersonjr.socialnetwork.domain.exception.ForbiddenActionException;
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.PostRequestBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.PostResponseBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
+import com.sysmap.laersonjr.socialnetwork.core.security.exception.ForbiddenActionException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.PostNotFoundException;
-import com.sysmap.laersonjr.socialnetwork.domain.model.Comment;
-import com.sysmap.laersonjr.socialnetwork.domain.model.Like;
-import com.sysmap.laersonjr.socialnetwork.domain.model.Post;
-import com.sysmap.laersonjr.socialnetwork.domain.model.User;
+import com.sysmap.laersonjr.socialnetwork.domain.entity.Comment;
+import com.sysmap.laersonjr.socialnetwork.domain.entity.Like;
+import com.sysmap.laersonjr.socialnetwork.domain.entity.Post;
+import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.PostRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;

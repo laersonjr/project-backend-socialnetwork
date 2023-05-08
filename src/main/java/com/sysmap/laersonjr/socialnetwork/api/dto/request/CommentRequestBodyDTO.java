@@ -1,8 +1,6 @@
-package com.sysmap.laersonjr.socialnetwork.api.modelDTO.input;
+package com.sysmap.laersonjr.socialnetwork.api.dto.request;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumeCommentDTO;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 

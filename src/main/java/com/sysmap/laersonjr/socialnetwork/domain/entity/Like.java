@@ -1,7 +1,6 @@
-package com.sysmap.laersonjr.socialnetwork.domain.model;
+package com.sysmap.laersonjr.socialnetwork.domain.entity;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResume;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumeLikeDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Field;
 

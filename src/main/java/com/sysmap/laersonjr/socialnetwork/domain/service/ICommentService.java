@@ -1,7 +1,7 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.CommentRequestBodyDTO;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.CommentResponseBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.CommentRequestBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.CommentResponseBodyDTO;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.UUID;

@@ -1,7 +1,7 @@
 package com.sysmap.laersonjr.socialnetwork.api.controller;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.UserAuthenticationDTO;
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserAuthenticatedDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.UserAuthenticationDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserAuthenticatedDTO;
 import com.sysmap.laersonjr.socialnetwork.domain.service.IAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

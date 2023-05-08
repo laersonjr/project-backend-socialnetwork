@@ -1,6 +1,6 @@
 package com.sysmap.laersonjr.socialnetwork.core.security;
 
-import com.sysmap.laersonjr.socialnetwork.domain.exception.TokenInvalidException;
+import com.sysmap.laersonjr.socialnetwork.core.security.exception.TokenInvalidException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

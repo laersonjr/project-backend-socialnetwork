@@ -1,4 +1,4 @@
-package com.sysmap.laersonjr.socialnetwork.api.modelDTO.input;
+package com.sysmap.laersonjr.socialnetwork.api.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
