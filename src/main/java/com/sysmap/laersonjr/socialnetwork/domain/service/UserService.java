@@ -6,6 +6,7 @@ import com.sysmap.laersonjr.socialnetwork.core.security.exception.ForbiddenActio
 import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.UserRepository;
+import com.sysmap.laersonjr.socialnetwork.domain.service.validator.IUserValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,13 @@ public class UserService implements IUserService {
     @Autowired
     private IAuthenticationService iAuthenticationService;
 
+    @Autowired
+    private IUserValidator iUserValidator;
+
     @Override
     public UserResponseBodyDTO createUserService(UserRequestBodyDTO userRequestBodyDTO) {
         User user = iModelMapperDTOConverter.convertToEntity(userRequestBodyDTO, User.class);
+        iUserValidator.checkUserExistenceByEmailOrNickname(user.getNickName(), user.getEmail());
         user.setCreatedDate();
         user.setId();
         userRepository.save(user);
@@ -60,32 +65,33 @@ public class UserService implements IUserService {
         return userRepository.findByEmail(email);
     }
 
+    @Override
+    public User findUserByNickNameService(String nickName) {
+        return userRepository.findByNickName(nickName);
+    }
+
     //TODO: Acrescentar regra e DTO para atualizar apenas dados recebidos.
     @Override
     public UserResponseBodyDTO updateUserService(UUID userId, UserRequestBodyDTO userRequestBodyDTO, HttpServletRequest request) {
         User userFound = findUserService(userId);
-        if(isUserNotOwnership(request, userFound)){
+        if (iUserValidator.isUserNotOwnership(request, userFound)) {
             throw new ForbiddenActionException();
         }
+        iUserValidator.checkUserExistenceByEmailOrNicknameUpdate(userRequestBodyDTO.getNickName(), userRequestBodyDTO.getEmail(), userId);
         BeanUtils.copyProperties(userRequestBodyDTO, userFound, "id");
         userFound.setUpdatedDate();
         User updatedUser = userRepository.save(userFound);
         return iModelMapperDTOConverter.convertToModelDTO(updatedUser, UserResponseBodyDTO.class);
     }
 
-    private boolean isUserNotOwnership(HttpServletRequest request, User userFound) {
-        return !userFound.getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
-    }
-
     @Override
     public void deleteUserService(UUID userId, HttpServletRequest request) {
         User userFound = findUserService(userId);
-        if(isUserNotOwnership(request, userFound)){
+        if (iUserValidator.isUserNotOwnership(request, userFound)) {
             throw new ForbiddenActionException();
         }
         userRepository.deleteById(userFound.getId());
     }
-
 
 
 }

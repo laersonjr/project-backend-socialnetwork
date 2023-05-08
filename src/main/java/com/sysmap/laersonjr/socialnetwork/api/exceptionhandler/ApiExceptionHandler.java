@@ -90,6 +90,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
     }
 
+    @ExceptionHandler(NicknameAlreadyExistsException.class)
+    private ResponseEntity<Object> handleNicknameAlreadyExistsException(NicknameAlreadyExistsException ex, WebRequest request){
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorDetails errorDetails = getDetailsErrors(status, ex);
+        return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    private ResponseEntity<Object> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex, WebRequest request){
+        HttpStatus status = HttpStatus.CONFLICT;
+        ErrorDetails errorDetails = getDetailsErrors(status, ex);
+        return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
+    }
+
     private List<ErrorDetails.ProblemError> getProblemErrors(List<ObjectError> allErrors) {
         return allErrors.stream()
                 .map(objectError -> new ErrorDetails.ProblemError(((FieldError) objectError).getField(),
