@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class UserResumePostDTO {
+public class UserResumeLikeDTO {
 
     private UUID id;
     private String nickName;

@@ -12,10 +12,12 @@ import java.util.UUID;
 public class PostResponseBodyDTO {
 
     private UUID id;
+    private UserResume user;
     private String title;
     private String content;
+    private Integer likeCounts;
     private LocalDateTime createdDate;
-    private UserResumePostDTO user;
     private List<CommentResponseBodyDTO> comments;
+
 
 }

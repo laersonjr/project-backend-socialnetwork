@@ -27,8 +27,8 @@ public class PostController {
 
     //TODO: Criar páginação para listar posts e posts por users
     @GetMapping
-    public List<PostResponseBodyDTO> listPosts() {
-        return ResponseEntity.ok(iPostService.postListingService()).getBody();
+    public List<PostResponseBodyDTO> listPosts(HttpServletRequest request) {
+        return ResponseEntity.ok(iPostService.postListingService(request)).getBody();
     }
 
     @GetMapping("/myposts")
@@ -37,19 +37,24 @@ public class PostController {
     }
 
     @GetMapping("/{nickName}")
-    public List<PostResponseBodyDTO> listPostByNickName(@PathVariable String nickName) {
-        return ResponseEntity.ok(iPostService.listPostByNickName(nickName)).getBody();
+    public List<PostResponseBodyDTO> listPostByNickName(@PathVariable String nickName, HttpServletRequest request) {
+        return ResponseEntity.ok(iPostService.listPostByNickName(nickName, request)).getBody();
     }
 
     @GetMapping("/id/{postId}")
-    public ResponseEntity<PostResponseBodyDTO> getPostbyID(@PathVariable UUID postId){
-        return ResponseEntity.ok(iPostService.findPostByIdService(postId));
+    public ResponseEntity<PostResponseBodyDTO> getPostbyID(@PathVariable UUID postId, HttpServletRequest request){
+        return ResponseEntity.ok(iPostService.findPostByIdService(postId, request));
     }
 
     @PutMapping("/{postId}")
     public ResponseEntity<PostResponseBodyDTO> updatePost(@PathVariable UUID postId, @Valid @RequestBody PostRequestBodyDTO postRequestBodyDTO,
                                                           HttpServletRequest request){
         return ResponseEntity.ok(iPostService.updatePostService(postId, postRequestBodyDTO, request));
+    }
+
+    @PutMapping("/{postId}/like")
+    public ResponseEntity<PostResponseBodyDTO> likeOrUnlike(@PathVariable UUID postId, HttpServletRequest request){
+        return ResponseEntity.ok(iPostService.likeOrUnlikeInPost(postId, request));
     }
 
     @DeleteMapping("/{postId}")

@@ -2,6 +2,7 @@ package com.sysmap.laersonjr.socialnetwork.api.controller;
 
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.input.CommentRequestBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.CommentResponseBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.PostResponseBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.domain.service.ICommentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,6 +31,12 @@ public class CommentController {
     public ResponseEntity<CommentResponseBodyDTO> updateComment(@PathVariable UUID idPost, @PathVariable UUID idComment,
                                                                 HttpServletRequest request, @Valid @RequestBody CommentRequestBodyDTO commentRequestBodyDTO){
         return ResponseEntity.ok(iCommentService.updateCommentService(idPost, idComment, request, commentRequestBodyDTO));
+    }
+
+    @PutMapping("/{idComment}/like")
+    public ResponseEntity<CommentResponseBodyDTO> likeOrUnlike(@PathVariable UUID idPost, @PathVariable UUID idComment,
+                                                            HttpServletRequest request){
+        return ResponseEntity.ok(iCommentService.likeOrUnlikeInComment(idPost, idComment, request));
     }
 
     @DeleteMapping("/{idComment}")

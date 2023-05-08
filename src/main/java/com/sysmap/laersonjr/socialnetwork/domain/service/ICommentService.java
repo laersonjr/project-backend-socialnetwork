@@ -12,4 +12,6 @@ public interface ICommentService {
     void removeCommentService(UUID idPost, UUID idComment, HttpServletRequest request);
 
     CommentResponseBodyDTO updateCommentService(UUID idPost, UUID idComment, HttpServletRequest request, CommentRequestBodyDTO commentRequestBodyDTO);
+
+    CommentResponseBodyDTO likeOrUnlikeInComment(UUID idPost, UUID idComment, HttpServletRequest request);
 }

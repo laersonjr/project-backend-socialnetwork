@@ -1,11 +1,10 @@
 package com.sysmap.laersonjr.socialnetwork.domain.model;
 
-import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResumePostDTO;
+import com.sysmap.laersonjr.socialnetwork.api.modelDTO.output.UserResume;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -23,7 +22,7 @@ public class Post {
     @Id
     private UUID id;
 
-    private UserResumePostDTO user;
+    private UserResume user;
 
     @NotBlank
     private String title;
@@ -55,6 +54,14 @@ public class Post {
 
     public void addComment(Comment comment){
         comments.add(comment);
+    }
+
+    public void addLike(Like like){
+        likes.add(like);
+    }
+
+    public void removeLike(Like like){
+        likes.remove(like);
     }
 
 }

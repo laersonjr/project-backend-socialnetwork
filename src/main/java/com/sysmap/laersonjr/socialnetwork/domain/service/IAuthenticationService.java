@@ -7,6 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface IAuthenticationService {
 
     String authenticateUser(UserAuthenticationDTO login);
+
     User getAuthenticatedUser(HttpServletRequest request);
+
+    boolean validadTokenByRequest(HttpServletRequest request);
 
 }

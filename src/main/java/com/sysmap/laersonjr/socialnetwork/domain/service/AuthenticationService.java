@@ -6,6 +6,7 @@ import com.sysmap.laersonjr.socialnetwork.domain.exception.IncorrectPasswordExce
 import com.sysmap.laersonjr.socialnetwork.domain.exception.TokenNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.model.User;
+import com.sysmap.laersonjr.socialnetwork.domain.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,15 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService implements IAuthenticationService {
 
     @Autowired
-    private IUserService iUserService;
+    private ITokenProvide iTokenProvide;
 
     @Autowired
-    private ITokenProvide iTokenProvide;
+    private UserRepository userRepository;
 
     @Override
     public String authenticateUser(UserAuthenticationDTO login) {
 
-        User userFound = iUserService.findUserByEmailService(login.getEmail());
+        User userFound = userRepository.findByEmail(login.getEmail());
 
         if (validateUserExists(userFound)) {
             throw new UserNotFoundException();
@@ -39,14 +40,23 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
     public User getAuthenticatedUser(HttpServletRequest request) {
+        String token = getTokenByRequest(request);
+        String email = iTokenProvide.getEmailFromToken(token);
+        return userRepository.findByEmail(email);
+    }
+
+    private String getTokenByRequest(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {
             throw new TokenNotFoundException();
         }
         String token = header.split(" ")[1];
         iTokenProvide.validateToken(token);
-        String email = iTokenProvide.getEmailFromToken(token);
-        return iUserService.findUserByEmailService(email);
+        return token;
+    }
+
+    public boolean validadTokenByRequest(HttpServletRequest request){
+        return iTokenProvide.validateToken(getTokenByRequest(request));
     }
 
 
