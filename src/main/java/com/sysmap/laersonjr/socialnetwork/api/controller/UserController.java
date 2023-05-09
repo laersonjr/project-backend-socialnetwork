@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<UserResponseBodyDTO> createUser(@Valid @RequestBody UserRequestBodyDTO userRequestBodyDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(iUserService.createUserService(userRequestBodyDTO));
     }
