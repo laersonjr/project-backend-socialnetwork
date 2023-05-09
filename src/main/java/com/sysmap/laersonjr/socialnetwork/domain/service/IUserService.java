@@ -1,5 +1,6 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service;
 
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.InviteRequest;
 import com.sysmap.laersonjr.socialnetwork.api.dto.request.UserRequestBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResponseBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
@@ -23,4 +24,7 @@ public interface IUserService {
 
     void deleteUserService(UUID idUsuario, HttpServletRequest request);
 
+    void sendFriendRequestService(String nickName, HttpServletRequest request);
+
+    void acceptFriendRequestService(String nickName, InviteRequest inviteRequest, HttpServletRequest request);
 }

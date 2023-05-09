@@ -1,7 +1,9 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service;
 
+import com.sysmap.laersonjr.socialnetwork.api.dto.request.InviteRequest;
 import com.sysmap.laersonjr.socialnetwork.api.dto.request.UserRequestBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResponseBodyDTO;
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
 import com.sysmap.laersonjr.socialnetwork.core.security.exception.ForbiddenActionException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
@@ -88,6 +90,36 @@ public class UserService implements IUserService {
             throw new ForbiddenActionException();
         }
         userRepository.deleteById(userFound.getId());
+    }
+
+    @Override
+    public void sendFriendRequestService(String nickName, HttpServletRequest request) {
+        User requestUser = iAuthenticationService.getAuthenticatedUser(request);
+        User friendUser = userRepository.findByNickName(nickName);
+        if(friendUser == null){
+            throw  new UserNotFoundException();
+        }
+        friendUser.getRequestsFriends().add(iModelMapperDTOConverter.convertToModelDTO(requestUser, UserResume.class));
+        userRepository.save(friendUser);
+    }
+
+    @Override
+    public void acceptFriendRequestService(String nickName, InviteRequest inviteRequest, HttpServletRequest request) {
+        User user = iAuthenticationService.getAuthenticatedUser(request);
+        User friendUser = userRepository.findByNickName(nickName);
+        if(friendUser == null){
+            throw  new UserNotFoundException();
+        }
+        if(inviteRequest.getInvite() == true){
+            user.getRequestsFriends().remove(iModelMapperDTOConverter.convertToModelDTO(friendUser, UserResume.class));
+            friendUser.getFriends().add(iModelMapperDTOConverter.convertToModelDTO(user, UserResume.class));
+            user.getFriends().add(iModelMapperDTOConverter.convertToModelDTO(friendUser, UserResume.class));
+            userRepository.save(friendUser);
+            userRepository.save(user);
+        } else {
+            user.getRequestsFriends().remove(iModelMapperDTOConverter.convertToModelDTO(friendUser, UserResume.class));
+            userRepository.save(user);
+        }
     }
 
 

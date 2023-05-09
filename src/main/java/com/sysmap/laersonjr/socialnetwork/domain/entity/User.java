@@ -1,5 +1,6 @@
 package com.sysmap.laersonjr.socialnetwork.domain.entity;
 
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -9,6 +10,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -33,6 +36,12 @@ public class User {
 
     @Field("photo_url")
     private String photoUrl;
+
+    @Field("friends")
+    private List<UserResume> friends = new ArrayList<>();
+
+    @Field("request_friends")
+    private List<UserResume> requestsFriends = new ArrayList<>();
 
     @Field("created_date")
     private LocalDateTime createdDate;
