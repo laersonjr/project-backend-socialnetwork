@@ -64,7 +64,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(IncorrectPasswordException.class)
     private ResponseEntity<Object> handleIncorrectPasswordException(IncorrectPasswordException ex, WebRequest request){
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
         ErrorDetails errorDetails = getDetailsErrors(status, ex);
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
     }

@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -31,12 +32,16 @@ public class UserService implements IUserService {
     @Autowired
     private IUserValidator iUserValidator;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserResponseBodyDTO createUserService(UserRequestBodyDTO userRequestBodyDTO) {
         User user = iModelMapperDTOConverter.convertToEntity(userRequestBodyDTO, User.class);
         iUserValidator.checkUserExistenceByEmailOrNickname(user.getNickName(), user.getEmail());
         user.setCreatedDate();
         user.setId();
+        user.setPassword(passwordEncoder.encode(userRequestBodyDTO.getPassword()));
         userRepository.save(user);
         UserResponseBodyDTO createdUser = iModelMapperDTOConverter.convertToModelDTO(user, UserResponseBodyDTO.class);
         return createdUser;
@@ -71,6 +76,7 @@ public class UserService implements IUserService {
         iUserValidator.checkUserExistenceByEmailOrNicknameUpdate(userRequestBodyDTO.getNickName(), userRequestBodyDTO.getEmail(), userId);
         BeanUtils.copyProperties(userRequestBodyDTO, userFound, "id");
         userFound.setUpdatedDate();
+        userFound.setPassword(passwordEncoder.encode(userRequestBodyDTO.getPassword()));
         User updatedUser = userRepository.save(userFound);
         return iModelMapperDTOConverter.convertToModelDTO(updatedUser, UserResponseBodyDTO.class);
     }
