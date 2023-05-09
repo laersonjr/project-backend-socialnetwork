@@ -18,6 +18,5 @@ public class ProjectSocialnetworkApplication {
         return new BCryptPasswordEncoder();
     }
 
-    //TODO: Incluir CORS
 
 }
