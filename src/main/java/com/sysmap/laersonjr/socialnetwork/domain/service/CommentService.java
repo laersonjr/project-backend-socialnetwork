@@ -9,6 +9,7 @@ import com.sysmap.laersonjr.socialnetwork.domain.entity.Comment;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.Like;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.Post;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
+import com.sysmap.laersonjr.socialnetwork.domain.service.validator.ICommentValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class CommentService implements ICommentService {
     @Autowired
     private IModelMapperDTOConverter iModelMapperDTOConverter;
 
+    @Autowired
+    private ICommentValidator iCommentValidator;
+
     @Override
     public CommentResponseBodyDTO createCommentService(UUID idPost, CommentRequestBodyDTO commentRequestBodyDTO, HttpServletRequest request) {
         User authenticatedUser = iAuthenticationService.getAuthenticatedUser(request);
@@ -48,7 +52,7 @@ public class CommentService implements ICommentService {
     public void removeCommentService(UUID idPost, UUID idComment, HttpServletRequest request) {
         Post postComments = iPostService.searchPostById(idPost);
         Comment comment = getCommentById(idComment, postComments.getComments());
-        if (isCommentNotOwnedByUser(request, comment)) {
+        if (iCommentValidator.isCommentNotOwnedByUser(request, comment)) {
             throw new ForbiddenActionException();
         }
         iPostService.removeCommentFromPost(postComments, comment);
@@ -58,7 +62,7 @@ public class CommentService implements ICommentService {
     public CommentResponseBodyDTO updateCommentService(UUID idPost, UUID idComment, HttpServletRequest request, CommentRequestBodyDTO commentRequestBodyDTO) {
         Post postComments = iPostService.searchPostById(idPost);
         Comment comment = getCommentById(idComment, postComments.getComments());
-        if (isCommentNotOwnedByUser(request, comment)) {
+        if (iCommentValidator.isCommentNotOwnedByUser(request, comment)) {
             throw new ForbiddenActionException();
         }
         comment.setCommentary(commentRequestBodyDTO.getCommentary());
@@ -95,10 +99,6 @@ public class CommentService implements ICommentService {
         commentResponseBodyDTO.setLikeCounts(comment.getLikes().size());
 
         return commentResponseBodyDTO;
-    }
-
-    private boolean isCommentNotOwnedByUser(HttpServletRequest request, Comment comment) {
-        return !comment.getUser().getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
     }
 
     private Comment getCommentById(UUID idComment, List<Comment> comments) throws CommentNotFoundException {

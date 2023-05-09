@@ -10,6 +10,7 @@ import com.sysmap.laersonjr.socialnetwork.domain.entity.Like;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.Post;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.PostRepository;
+import com.sysmap.laersonjr.socialnetwork.domain.service.validator.IPostValidator;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class PostService implements IPostService {
 
     @Autowired
     private IAuthenticationService iAuthenticationService;
+
+    @Autowired
+    private IPostValidator iPostValidator;
 
     @Override
     public PostResponseBodyDTO createPostService(PostRequestBodyDTO postRequestBodyDTO, HttpServletRequest request) {
@@ -74,7 +78,7 @@ public class PostService implements IPostService {
     @Override
     public PostResponseBodyDTO updatePostService(UUID postId, PostRequestBodyDTO postRequestBodyDTO, HttpServletRequest request) {
         Post findPost = searchPostById(postId);
-        if (isPostNotOwnedByUser(request, findPost)) {
+        if (iPostValidator.isPostNotOwnedByUser(request, findPost)) {
             throw new ForbiddenActionException();
         }
         BeanUtils.copyProperties(postRequestBodyDTO, findPost, "id");
@@ -86,7 +90,7 @@ public class PostService implements IPostService {
     @Override
     public void deletePostService(UUID postId, HttpServletRequest request) {
         Post findPost = searchPostById(postId);
-        if (isPostNotOwnedByUser(request, findPost)) {
+        if (iPostValidator.isPostNotOwnedByUser(request, findPost)) {
             throw new ForbiddenActionException();
         }
         postRepository.deleteById(postId);
@@ -141,11 +145,6 @@ public class PostService implements IPostService {
         postResponseBodyDTO.setLikeCounts(post.getLikes().size());
         return postResponseBodyDTO;
     }
-
-    private boolean isPostNotOwnedByUser(HttpServletRequest request, Post findPost) {
-        return !findPost.getUser().getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
-    }
-
 
     public Post searchPostById(UUID postId) {
         return postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException());

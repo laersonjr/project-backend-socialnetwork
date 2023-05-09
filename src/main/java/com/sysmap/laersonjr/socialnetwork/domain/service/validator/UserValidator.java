@@ -22,10 +22,12 @@ public class UserValidator implements IUserValidator {
     @Autowired
     private UserRepository userRepository;
 
+    @Override
     public boolean isUserNotOwnership(HttpServletRequest request, User userFound) {
         return !userFound.getId().equals(iAuthenticationService.getAuthenticatedUser(request).getId());
     }
 
+    @Override
     public boolean checkUserExistenceByEmailOrNickname(String nickName, String email) {
         if (userRepository.findByNickName(nickName) != null) {
             throw new NicknameAlreadyExistsException();
@@ -36,6 +38,7 @@ public class UserValidator implements IUserValidator {
         return true;
     }
 
+    @Override
     public boolean checkUserExistenceByEmailOrNicknameUpdate(String nickName, String email, UUID userId) {
         User userByNickName = userRepository.findByNickName(nickName);
         if (userByNickName != null && !userByNickName.getId().equals(userId)) {

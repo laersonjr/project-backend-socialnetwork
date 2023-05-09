@@ -23,7 +23,4 @@ public interface IUserService {
 
     void deleteUserService(UUID idUsuario, HttpServletRequest request);
 
-    User findUserByEmailService(String email);
-
-    User findUserByNickNameService(String nickName);
 }

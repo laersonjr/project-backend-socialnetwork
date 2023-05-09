@@ -60,15 +60,6 @@ public class UserService implements IUserService {
         return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
     }
 
-    @Override
-    public User findUserByEmailService(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public User findUserByNickNameService(String nickName) {
-        return userRepository.findByNickName(nickName);
-    }
 
     //TODO: Acrescentar regra e DTO para atualizar apenas dados recebidos.
     @Override
