@@ -1,0 +1,729 @@
+{
+	"info": {
+		"_postman_id": "abf8b9c2-bb55-4faa-9fd6-8eff8fdae240",
+		"name": "SysMap - BackEnd LaersonJr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14096947",
+		"_collection_link": "https://www.postman.com/aviation-pilot-77502413/workspace/social-network-laersonjr/collection/14096947-abf8b9c2-bb55-4faa-9fd6-8eff8fdae240?action=share&creator=14096947&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Get Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"email@gmail.com\",\r\n    \"password\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"email@gmail.com\",\r\n    \"password\" : \"123456\",\r\n    \"nickName\" : \"meuNickName\",\r\n    \"photoUrl\" : \"www.google.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/users/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find User By ID",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/users/{userId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{userId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Page User NickName Contains",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/users?nickname=\"Nick\"&page=0&size=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "nickname",
+									"value": "\"Nick\""
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Page User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/users?page=0&size=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User By ID",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nickName\" : \"1\",\r\n\t\"password\" : \"1\",\r\n\t\"email\" : \"1@1.com\",\r\n    \"photoUrl\" : \"www.novaurl.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/users/{userId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{userId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invite Request Friend",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/users/invite/{meuNickName}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"invite",
+								"{meuNickName}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept or Reject Invite Request Friend",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"invite\" : true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/users/invite/{meuNickName}/accept",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"invite",
+								"{meuNickName}",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By ID",
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/users/{userId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{userId}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Create Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Meu post\",\r\n    \"content\" : \"Post Criado pelo usuário\"\r\n\t\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All Post From My User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/myposts",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"myposts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All Post From Nickname",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{nickname}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{nickname}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/id/{postId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"id",
+								"{postId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"content\" : \"Atualizando conteúdo para post\",\r\n\t\"title\" : \"Post Teste Atualizado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{postId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{postId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LikeOrUnlike Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{postId}/like",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{postId}",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{postId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{postId}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Create Comment In Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentary\" : \"Inserindo comentário\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{postId}/comment",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{postId}",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment In Post By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentary\" : \"Inserindo comentário\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{postId}/comment/{commentId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{postId}",
+								"comment",
+								"{commentId}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LikeOrUnlike Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{postId}/comment/{commentId}/like",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{postId}",
+								"comment",
+								"{commentId}",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment In Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJmYmEyZjA0Zi1kZWMwLTRmMDQtYmY2Mi0yZjBlOGRhNDczZDgiLCJzdWIiOiJlbWFpbEBnbWFpbC5jb20iLCJpYXQiOjE2ODM2NTA1NzIsImV4cCI6MTY4MzY1Nzc3Mn0.z8zhBN0oGw2p2TUVbSNkoww6DXjnhaPSlgl_NhkwUcT5GekHIRBC81_kkDubuANZKzEBInN443f9wFzRFkpWug",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/api/v1/posts/{postId}/comment/{commentId}",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"{postId}",
+								"comment",
+								"{commentId}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
