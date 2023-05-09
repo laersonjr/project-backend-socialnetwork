@@ -83,6 +83,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
     }
 
+    @ExceptionHandler(FriendshipAlreadyExistsException.class)
+    private ResponseEntity<Object> handleFriendshipAlreadyExistsException(FriendshipAlreadyExistsException ex, WebRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ErrorDetails errorDetails = getDetailsErrors(status, ex);
+        return handleExceptionInternal(ex, errorDetails, new HttpHeaders(), status, request);
+    }
+
     @ExceptionHandler(CommentNotFoundException.class)
     private ResponseEntity<Object> handleCommentNotFoundException(CommentNotFoundException ex, WebRequest request){
         HttpStatus status = HttpStatus.NOT_FOUND;

@@ -5,6 +5,7 @@ import com.sysmap.laersonjr.socialnetwork.api.dto.request.UserRequestBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResponseBodyDTO;
 import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
 import com.sysmap.laersonjr.socialnetwork.core.security.exception.ForbiddenActionException;
+import com.sysmap.laersonjr.socialnetwork.domain.exception.FriendshipAlreadyExistsException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.UserNotFoundException;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.UserRepository;
@@ -97,7 +98,10 @@ public class UserService implements IUserService {
         User requestUser = iAuthenticationService.getAuthenticatedUser(request);
         User friendUser = userRepository.findByNickName(nickName);
         if(friendUser == null){
-            throw  new UserNotFoundException();
+            throw new UserNotFoundException();
+        }
+        if(iUserValidator.checkFrindList(requestUser, friendUser)){
+            throw new FriendshipAlreadyExistsException();
         }
         friendUser.getRequestsFriends().add(iModelMapperDTOConverter.convertToModelDTO(requestUser, UserResume.class));
         userRepository.save(friendUser);

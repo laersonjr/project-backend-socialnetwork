@@ -1,11 +1,13 @@
 package com.sysmap.laersonjr.socialnetwork.domain.service.validator;
 
 
+import com.sysmap.laersonjr.socialnetwork.api.dto.response.UserResume;
 import com.sysmap.laersonjr.socialnetwork.domain.entity.User;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.EmailAlreadyExistsException;
 import com.sysmap.laersonjr.socialnetwork.domain.exception.NicknameAlreadyExistsException;
 import com.sysmap.laersonjr.socialnetwork.domain.repository.UserRepository;
 import com.sysmap.laersonjr.socialnetwork.domain.service.IAuthenticationService;
+import com.sysmap.laersonjr.socialnetwork.domain.service.IModelMapperDTOConverter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,9 @@ public class UserValidator implements IUserValidator {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private IModelMapperDTOConverter iModelMapperDTOConverter;
 
     @Override
     public boolean isUserNotOwnership(HttpServletRequest request, User userFound) {
@@ -49,6 +54,21 @@ public class UserValidator implements IUserValidator {
             throw new EmailAlreadyExistsException();
         }
         return true;
+    }
+
+    @Override
+    public boolean checkFrindList(User requestUser, User friendUser) {
+        for(int i = 0; i < friendUser.getRequestsFriends().size(); i++){
+            if(friendUser.getRequestsFriends().get(i).getId().equals(requestUser.getId())){
+                return true;
+            }
+        }
+        for(int i = 0; i < friendUser.getFriends().size(); i++){
+            if(friendUser.getFriends().get(i).getId().equals(requestUser.getId())){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

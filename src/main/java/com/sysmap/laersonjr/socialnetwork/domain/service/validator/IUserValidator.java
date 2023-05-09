@@ -11,4 +11,5 @@ public interface IUserValidator {
     boolean checkUserExistenceByEmailOrNickname(String nickName, String email);
     boolean checkUserExistenceByEmailOrNicknameUpdate(String nickName, String email, UUID userId);
 
+    boolean checkFrindList(User requestUser, User friendUser);
 }

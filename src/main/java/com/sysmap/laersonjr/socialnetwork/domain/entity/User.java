@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -60,6 +61,15 @@ public class User {
     public void setUpdatedDate() {
         this.updatedDate = LocalDateTime.now();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserResume that = (UserResume) o;
+        return Objects.equals(id, that.getId());
+    }
+
 
 
 }
